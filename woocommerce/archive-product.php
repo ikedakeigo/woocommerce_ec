@@ -56,7 +56,10 @@ if ( woocommerce_product_loop() ) {
 	 */
 	do_action( 'woocommerce_before_shop_loop' );
 
-	woocommerce_product_loop_start();
+	echo '<div class="products-slider">';
+
+	// コメントアウト
+	// woocommerce_product_loop_start();
 
 	if ( wc_get_loop_prop( 'total' ) ) {
 		while ( have_posts() ) {
@@ -67,11 +70,20 @@ if ( woocommerce_product_loop() ) {
 			 */
 			do_action( 'woocommerce_shop_loop' );
 
-			wc_get_template_part( 'content', 'product' );
+ 			// 各製品を囲む div タグを追加
+      echo '<div class="product-slide">';
+
+				wc_get_template_part( 'content', 'product' );
+
+			echo '</div>';
 		}
 	}
 
-	woocommerce_product_loop_end();
+	// コメントアウト
+	// woocommerce_product_loop_end();
+
+	// ここで Slick Slider のクラスを閉じる
+	echo '</div>';
 
 	/**
 	 * Hook: woocommerce_after_shop_loop.
@@ -101,5 +113,7 @@ do_action( 'woocommerce_after_main_content' );
  * @hooked woocommerce_get_sidebar - 10
  */
 do_action( 'woocommerce_sidebar' );
+
+
 
 get_footer( 'shop' );

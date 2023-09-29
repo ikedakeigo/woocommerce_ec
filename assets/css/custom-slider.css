@@ -1,0 +1,70 @@
+.products-slider .product-slide {
+  margin: 0 15px; /* 左右のマージンを15pxに設定 */
+}
+
+.products-slider button {
+  appearance: none;
+  outline: none;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.products-slider button:focus {
+  outline: none;
+}
+
+.products-slider button.arrow-common {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 50px;
+  cursor: pointer;
+  z-index: 5;
+}
+
+
+
+.products-slider button.arrow-prev {
+  left: -1%;
+  top: 40%;
+  transform: scaleX(-1);
+}
+.products-slider button.arrow-next {
+  right: -1%;
+}
+
+.slide-arrow.next-arrow,
+.slide-arrow.prev-arrow {
+  transform: translateY(-100%);
+}
+
+.products-slider {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+@media (max-width: 768px) {
+  .products-slider button.arrow-common {
+    width: 40px;
+  }
+  .products-slider button.arrow-next {
+    top: 45%;
+  }
+  .products-slider button.arrow-prev {
+    top: 40%;
+  }
+}
+@media (max-width: 400px) {
+  .products-slider button.arrow-common {
+    width: 30px;
+  }
+  .products-slider button.arrow-next {
+    top: 37%;
+  }
+  .products-slider button.arrow-prev {
+    top: 30%;
+  }
+}

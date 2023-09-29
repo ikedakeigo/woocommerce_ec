@@ -4,6 +4,39 @@ function enqueue_parent_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri().'/style.css' );
 }
 
+// Slick Slider のスクリプト--------------------------------------------------------------------------------
+function enqueue_slick_assets() {
+  // Slick CSS
+  wp_enqueue_style( 'slick-css', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css' );
+
+  // Slick Theme CSS (デフォルトのテーマ。必要に応じて追加)
+  wp_enqueue_style( 'slick-theme-css', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css' );
+
+  // Slick JS
+  wp_enqueue_script( 'slick-js', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array('jquery'), null, true );
+
+  }
+  add_action( 'wp_enqueue_scripts', 'enqueue_slick_assets' );
+
+  function enqueue_custom_scripts() {
+    wp_enqueue_script( 'custom-scripts', get_stylesheet_directory_uri() . '/js/custom-scripts.js', array('jquery', 'slick-js'), null, true );
+
+    // PHP 変数を JavaScript に渡す
+    wp_localize_script('custom-scripts', 'themeVars', array(
+      'themeUrl' => get_stylesheet_directory_uri()
+  ));
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_custom_scripts', 20 );
+
+
+// custom-slider.cssの読み込み--------------------------------------------------------------------------------
+
+function enqueue_custom_slider_assets() {
+  wp_enqueue_style( 'custom-slider-css', get_stylesheet_directory_uri() . '/assets/css/custom-slider.css');
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_custom_slider_assets');
+
+
 
 // JavaScriptを追加して「テキスト」モードでsplitボタンを表示--------------------------------------------------------------------------------
 
