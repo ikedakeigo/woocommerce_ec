@@ -37,7 +37,7 @@ function enqueue_custom_slider_assets() {
 add_action( 'wp_enqueue_scripts', 'enqueue_custom_slider_assets');
 
 
-// --------------------------------------------------------------------------------
+// 画像パス--------------------------------------------------------------------------------
 function custom_styles() {
   ?>
   <style>
