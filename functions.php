@@ -37,6 +37,24 @@ function enqueue_custom_slider_assets() {
 add_action( 'wp_enqueue_scripts', 'enqueue_custom_slider_assets');
 
 
+// --------------------------------------------------------------------------------
+function custom_styles() {
+  ?>
+  <style>
+      .recentry_viewed_products .swiper-button-next:after {
+          content: "";
+          background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/assets/img/y.svg');
+      }
+      .recentry_viewed_products .swiper-button-prev:after {
+          content: "";
+          background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/assets/img/y.svg');
+          transform: scaleX(-1);
+      }
+  </style>
+  <?php
+}
+add_action('wp_head', 'custom_styles');
+
 
 // JavaScriptを追加して「テキスト」モードでsplitボタンを表示--------------------------------------------------------------------------------
 
