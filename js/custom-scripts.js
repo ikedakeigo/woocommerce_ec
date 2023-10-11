@@ -36,4 +36,7 @@ jQuery(document).ready(function () {
       }
     ]
   });
+
+  jQuery('.product_loop').attr('id', 'product_archive').attr('data-count', myLocalizedData.total_posts);
 });
+
