@@ -36,11 +36,6 @@ function enqueue_custom_slider_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_custom_slider_assets');
 
-// custom-product.cssの読み込み--------------------------------------------------------------------------------
-function enqueue_custom_product_assets(){
-  wp_enqueue_style( 'custom-product-css', get_stylesheet_directory_uri() . '/assets/css/custom-product.css');
-}
-add_action( 'wp_enqueue_scripts', 'enqueue_custom_product_assets');
 
 // 画像パス--------------------------------------------------------------------------------
 function custom_styles() {
@@ -217,78 +212,3 @@ function custom_woocommerce_account_menu_items_label( $items ) {
 
     return $items;
 }
-
-
-// AJAXリクエスト--------------------------------------------------------------------------------
-// add_action( 'wp_ajax_my_ajax_action', 'my_ajax_action_function' ); // ログインユーザーのため
-// add_action( 'wp_ajax_nopriv_my_ajax_action', 'my_ajax_action_function' ); // ログインしていないユーザーのため
-
-// function my_ajax_action_function() {
-
-
-//   // リクエストから必要な情報を取得
-//   $post_type = $_POST['post_type'] ?? 'post'; // デフォルトは 'post'
-//   $get_post_num = intval($_POST['get_post_num'] ?? 0);
-//   $now_post_num = intval($_POST['now_post_num'] ?? 0);
-
-//   // WP_Queryを使用して投稿を取得
-//   $args = array(
-//       'post_type' => $post_type,
-//       'posts_per_page' => $get_post_num,
-//       'offset' => $now_post_num
-//   );
-//   $query = new WP_Query($args);
-
-//   $posts_data = array();
-
-//   if ($query->have_posts()) {
-//     while ($query->have_posts()) {
-//         $query->the_post();
-//         $post_id = get_the_ID(); // 現在の投稿IDを取得
-
-//         // WooCommerceの価格情報を取得
-//         $price = get_post_meta($post_id, '_price', true);
-//         $formatted_price = wc_price($price);  // WooCommerceの関数を使って価格を整形
-
-//         // ここで各投稿のデータを取得・整形
-//         $posts_data[] = array(
-//             'title' => get_the_title(),
-//             'content' => get_the_content(),
-//             'permalink' => get_permalink(),
-//             'price' => $formatted_price,  // 価格を追加
-//             'post_id' => $post_id, // 投稿IDを追加
-//             // 必要に応じて他のデータを追加
-//         );
-//     }
-//     wp_reset_postdata();
-//   }
-
-//   // JSON形式でデータを返す
-//   // echo json_encode($posts_data);
-//   wp_send_json($posts_data);
-//   // 忘れずに終了
-//   wp_die();
-// }
-
-
-
-// function enqueue_my_scripts() {
-//   // スクリプトを登録 & エンキュー
-//   wp_enqueue_script('custom-scripts', get_stylesheet_directory_uri() . '/js/custom-scripts.js', array('jquery'), null, true);
-
-//   $args = array(
-//       'post_type' => 'product',
-//       'post_status' => 'publish',
-//       'posts_per_page' => -1
-//   );
-//   $query = new WP_Query($args);
-//   $total_posts = $query->found_posts;
-
-//   // localize script
-//   wp_localize_script('custom-scripts', 'myLocalizedData', array(
-//       'total_posts' => $total_posts
-//   ));
-
-//   wp_reset_postdata();  // Reset the query
-// }
-// add_action('wp_enqueue_scripts', 'enqueue_my_scripts');
