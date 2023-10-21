@@ -75,6 +75,16 @@ function custom_quicktags_script() {
 add_action('admin_enqueue_scripts', 'custom_quicktags_script');
 
 
+// jsでテキストの修正--------------------------------------------------------------------------------
+
+function custom_editor_script(){
+  wp_enqueue_script(
+    'custom-editor',
+    get_stylesheet_directory_uri() . '/js/custom-editor.js',
+    array('jquery')
+  );
+}
+add_action('admin_enqueue_scripts', 'custom_editor_script');
 
 
 // クラシックエディタのボタンとプラグインを追加--------------------------------------------------------------------------------
@@ -107,22 +117,22 @@ add_shortcode('test-bottom', 'capture_test_bottom_shortcode');
 // カスタム投稿の作成 --------------------------------------------------------------------------------
 function custom_woocommerce_pages_post_type() {
   $labels = array(
-      'name'               => _x('WooCommerce Pages', 'post type general name'),
-      'singular_name'      => _x('WooCommerce Page', 'post type singular name'),
+      'name'               => _x('commerce Pages', 'post type general name'),
+      'singular_name'      => _x('commerce Page', 'post type singular name'),
       'add_new'            => _x('新規追加', 'book'),
-      'add_new_item'       => __('Add New WooCommerce Page'),
-      'edit_item'          => __('Edit WooCommerce Page'),
-      'new_item'           => __('New WooCommerce Page'),
+      'add_new_item'       => __('Add New commerce Page'),
+      'edit_item'          => __('Edit commerce Page'),
+      'new_item'           => __('New commerce Page'),
       'all_items'          => __('固定ページ一覧'),
-      'view_item'          => __('View WooCommerce Page'),
-      'search_items'       => __('Search WooCommerce Pages'),
-      'not_found'          => __('No WooCommerce pages found'),
-      'not_found_in_trash' => __('No WooCommerce pages found in the Trash'),
-      'menu_name'          => 'WooCommerce Pages'
+      'view_item'          => __('View commerce Page'),
+      'search_items'       => __('Search commerce Pages'),
+      'not_found'          => __('No commerce pages found'),
+      'not_found_in_trash' => __('No commerce pages found in the Trash'),
+      'menu_name'          => 'commerce Pages'
   );
   $args = array(
       'labels'        => $labels,
-      'description'   => 'Holds our WooCommerce custom pages',
+      'description'   => 'Holds our commerce custom pages',
       'public'        => true,
       'menu_position' => 5,
       'supports'      => array('title', 'editor', 'thumbnail', 'excerpt', 'comments'),
@@ -219,6 +229,35 @@ function custom_woocommerce_account_menu_items_label( $items ) {
 }
 
 
+// ダッシュボードの名前変更-10/18
+function change_tcd_menu_label() {
+  global $menu;
+  foreach ($menu as $key => $val) {
+      if ('TCDテーマ' == $val[0]) {
+          $menu[$key][0] = 'テーマ';
+    }elseif('WooCommerce' == $val[0]){
+      $menu[$key][0] = 'commerce';
+    }
+  }
+}
+add_action('admin_menu', 'change_tcd_menu_label', 999);
+
+// TCDマニュアル-メニューの削除-10/18
+function remove_menus() {
+  remove_submenu_page( 'index.php', 'index.php?page=theme_manual'  ); // ダッシュボード / ホーム
+
+}
+add_action( 'admin_menu', 'remove_menus', 999 );
+
+
+function hide_theme_update_menu() {
+  echo '<style>
+      #menu-dashboard .wp-submenu li a[href="index.php?page=theme_manual"] {
+          display: none !important;
+      }
+  </style>';
+}
+add_action('admin_head', 'hide_theme_update_menu');
 // AJAXリクエスト--------------------------------------------------------------------------------
 // add_action( 'wp_ajax_my_ajax_action', 'my_ajax_action_function' ); // ログインユーザーのため
 // add_action( 'wp_ajax_nopriv_my_ajax_action', 'my_ajax_action_function' ); // ログインしていないユーザーのため
