@@ -258,6 +258,17 @@ function hide_theme_update_menu() {
   </style>';
 }
 add_action('admin_head', 'hide_theme_update_menu');
+
+// ファイル追加--------------------------------------------------------------------------------
+
+$file_path = get_stylesheet_directory() . '/js/custom-editor.js';
+if ( ! file_exists( $file_path ) ) {
+    touch( $file_path );
+}
+
+
+
+
 // AJAXリクエスト--------------------------------------------------------------------------------
 // add_action( 'wp_ajax_my_ajax_action', 'my_ajax_action_function' ); // ログインユーザーのため
 // add_action( 'wp_ajax_nopriv_my_ajax_action', 'my_ajax_action_function' ); // ログインしていないユーザーのため
